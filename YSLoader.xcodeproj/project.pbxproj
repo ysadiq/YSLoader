@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4476E484297BE79336AF727B /* libPods-YSLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 293F6FDB92069889F30E9508 /* libPods-YSLoader.a */; };
+		9997A3C2234D7F8E00787435 /* YSLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9997A3C1234D7F8E00787435 /* YSLoader.swift */; };
 		99BC81AA234D6D0600603C9A /* YSLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99BC81A0234D6D0600603C9A /* YSLoader.framework */; };
 		99BC81AF234D6D0600603C9A /* YSLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BC81AE234D6D0600603C9A /* YSLoaderTests.swift */; };
 		99BC81B1234D6D0600603C9A /* YSLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 99BC81A3234D6D0600603C9A /* YSLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,6 +28,7 @@
 		293F6FDB92069889F30E9508 /* libPods-YSLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YSLoader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE8C748EA9B167E75A41D4B /* Pods-YSLoader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLoader.debug.xcconfig"; path = "Target Support Files/Pods-YSLoader/Pods-YSLoader.debug.xcconfig"; sourceTree = "<group>"; };
 		5DC9AD01342592ADDFC630E4 /* Pods-YSLoader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLoader.release.xcconfig"; path = "Target Support Files/Pods-YSLoader/Pods-YSLoader.release.xcconfig"; sourceTree = "<group>"; };
+		9997A3C1234D7F8E00787435 /* YSLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YSLoader.swift; sourceTree = "<group>"; };
 		99BC81A0234D6D0600603C9A /* YSLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YSLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99BC81A3234D6D0600603C9A /* YSLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSLoader.h; sourceTree = "<group>"; };
 		99BC81A4234D6D0600603C9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			children = (
 				99BC81A3234D6D0600603C9A /* YSLoader.h */,
 				99BC81A4234D6D0600603C9A /* Info.plist */,
+				9997A3C1234D7F8E00787435 /* YSLoader.swift */,
 			);
 			path = YSLoader;
 			sourceTree = "<group>";
@@ -107,7 +110,6 @@
 				4AE8C748EA9B167E75A41D4B /* Pods-YSLoader.debug.xcconfig */,
 				5DC9AD01342592ADDFC630E4 /* Pods-YSLoader.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -174,6 +176,7 @@
 				TargetAttributes = {
 					99BC819F234D6D0600603C9A = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 					99BC81A8234D6D0600603C9A = {
 						CreatedOnToolsVersion = 10.3;
@@ -245,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9997A3C2234D7F8E00787435 /* YSLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4AE8C748EA9B167E75A41D4B /* Pods-YSLoader.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -410,6 +415,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ysaddiq.YSLoader;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -419,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5DC9AD01342592ADDFC630E4 /* Pods-YSLoader.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -444,6 +451,7 @@
 		99BC81B8234D6D0600603C9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 93L23JH8CL;
 				INFOPLIST_FILE = YSLoaderTests/Info.plist;
@@ -462,6 +470,7 @@
 		99BC81B9234D6D0600603C9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 93L23JH8CL;
 				INFOPLIST_FILE = YSLoaderTests/Info.plist;
