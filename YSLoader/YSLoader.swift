@@ -19,14 +19,23 @@ enum FileType {
     case ZIP
 }
 
-public class YSLoader: NSObject {
-    public func loadImage(with url: String, completion: @escaping (UIImage?) -> Void) {
+public protocol YSLoaderProtocol {
+    func image(with url: String, completion: @escaping (UIImage?) -> Void)
+    func json(with url: String, completion: @escaping (Data?) -> Void)
+    func cancelRequest()
+}
+
+public class YSLoader: YSLoaderProtocol {
+    var request: DataRequest?
+    public static let shared: YSLoader = YSLoader()
+
+    public func image(with url: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: url) else {
             completion(nil)
             return
         }
 
-        Alamofire.request(url, method: .get)
+        request = Alamofire.request(url, method: .get)
             .validate()
             .responseImage { response in
                 guard response.result.isSuccess,
@@ -37,5 +46,31 @@ public class YSLoader: NSObject {
                 }
                 completion(image)
         }
+    }
+
+    public func json(with url: String, completion: @escaping (Data?) -> Void) {
+        guard let url = URL(string: url) else {
+            completion(nil)
+            return
+        }
+
+        request = Alamofire.request(url, method: .get)
+            .validate()
+            .responseJSON(completionHandler: { response in
+                guard response.result.isSuccess,
+                    let data = response.data else {
+                        print("Error while fetching JSON: \(String(describing: response.result.error))")
+                        completion(nil)
+                        return
+                }
+                completion(data)
+            })
+    }
+
+    public func cancelRequest() {
+        guard let request = request else {
+            return
+        }
+        request.cancel()
     }
 }
