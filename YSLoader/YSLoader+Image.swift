@@ -18,7 +18,10 @@ extension YSLoader {
             return
         }
 
-        request = Alamofire.request(url, method: .get)
+        request = Alamofire
+            .SessionManager
+            .default
+            .request(url, method: .get)
             .validate()
             .responseImage { response in
                 guard response.result.isSuccess,

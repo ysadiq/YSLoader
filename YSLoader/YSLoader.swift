@@ -58,7 +58,6 @@ public class YSLoader: YSLoaderProtocol {
         default:
             break
         }
-
     }
 
     public func cancelRequest() {
