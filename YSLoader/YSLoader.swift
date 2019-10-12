@@ -9,62 +9,56 @@
 import Foundation
 import UIKit
 import Alamofire
-import AlamofireImage
 
-enum FileType {
-    case Image
-    case PDF
-    case JSON
-    case XML
-    case ZIP
-}
-
-public protocol YSLoaderProtocol {
-    func image(with url: String, completion: @escaping (UIImage?) -> Void)
-    func json(with url: String, completion: @escaping (Data?) -> Void)
-    func cancelRequest()
-}
+public typealias Handler<T> = (Result<T, Error>) -> Void
 
 public class YSLoader: YSLoaderProtocol {
+
     var request: DataRequest?
     public static let shared: YSLoader = YSLoader()
 
-    public func image(with url: String, completion: @escaping (UIImage?) -> Void) {
-        guard let url = URL(string: url) else {
-            completion(nil)
-            return
-        }
-
-        request = Alamofire.request(url, method: .get)
-            .validate()
-            .responseImage { response in
-                guard response.result.isSuccess,
-                let image = response.result.value else {
-                    print("Error while fetching image: \(String(describing: response.result.error))")
-                    completion(nil)
-                    return
-                }
-                completion(image)
-        }
+    public func load<T>(with url: String,
+                        dataType: DataType,
+                        completionHandler: @escaping Handler<T>) {
+        load(with: url,
+             parameters: nil,
+             dataType: dataType,
+             completionHandler: completionHandler)
     }
 
-    public func json(with url: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: url) else {
-            completion(nil)
-            return
+    public func load<T>(with url: String,
+                        parameters: [String: String]?,
+                        dataType: DataType,
+                        completionHandler: @escaping Handler<T>) {
+        switch dataType {
+        case .image:
+            loadImage(with: url) { result in
+                switch result {
+                case .failure(let error):
+                    completionHandler(.failure(error))
+                case .success(let image):
+                    guard let image = image as? T else {
+                        return
+                    }
+                    completionHandler(.success(image))
+                }
+            }
+        case .json:
+            loadJSON(with: url) { result in
+                switch result {
+                case .failure(let error):
+                    completionHandler(.failure(error))
+                case .success(let json):
+                    guard let json = json as? T else {
+                        return
+                    }
+                    completionHandler(.success(json))
+                }
+            }
+        default:
+            break
         }
 
-        request = Alamofire.request(url, method: .get)
-            .validate()
-            .responseJSON(completionHandler: { response in
-                guard response.result.isSuccess,
-                    let data = response.data else {
-                        print("Error while fetching JSON: \(String(describing: response.result.error))")
-                        completion(nil)
-                        return
-                }
-                completion(data)
-            })
     }
 
     public func cancelRequest() {
