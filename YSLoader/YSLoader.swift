@@ -9,13 +9,16 @@
 import Foundation
 import UIKit
 import Alamofire
+import AlamofireImage
 
 public typealias Handler<T> = (Result<T, Error>) -> Void
 
 public class YSLoader: YSLoaderProtocol {
 
-    var request: DataRequest?
     public static let shared: YSLoader = YSLoader()
+    internal static let memorycacheSizeMegabytes = 30
+    internal let imageCache = AutoPurgingImageCache(memoryCapacity: 111_111_111, preferredMemoryUsageAfterPurge: 90_000_000)
+    var request: DataRequest?
 
     public func load<T>(with url: String,
                         dataType: DataType,

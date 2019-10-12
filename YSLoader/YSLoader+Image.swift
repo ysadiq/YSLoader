@@ -12,9 +12,8 @@ import AlamofireImage
 
 extension YSLoader {
     internal func loadImage(with url: String, completionHandler: @escaping Handler<UIImage>) {
-        guard let url = URL(string: url) else {
-            let error = NSError(domain: "Error while creating URL from a string", code: 1, userInfo: nil)
-            completionHandler(.failure(error))
+        if let image = imageCache.image(withIdentifier: url) {
+            completionHandler(.success(image))
             return
         }
 
@@ -23,7 +22,7 @@ extension YSLoader {
             .default
             .request(url, method: .get)
             .validate()
-            .responseImage { response in
+            .responseImage { [weak self] response in
                 guard response.result.isSuccess,
                     let image = response.result.value else {
                         if let error = response.result.error {
@@ -32,6 +31,7 @@ extension YSLoader {
                         }
                         return
                 }
+                self?.imageCache.add(image, withIdentifier: url)
                 completionHandler(.success(image))
         }
     }
