@@ -16,5 +16,5 @@ public protocol YSLoaderProtocol {
                  parameters: [String: String]?,
                  dataType: DataType,
                  completionHandler: @escaping Handler<T>)
-    func cancelRequest()
+    func cancelRequest(with url: String)
 }

@@ -16,8 +16,15 @@ public typealias Handler<T> = (Result<T, Error>) -> Void
 public class YSLoader: YSLoaderProtocol {
 
     public static let shared: YSLoader = YSLoader()
-    internal static let memorycacheSizeMegabytes = 30
-    internal let imageCache = AutoPurgingImageCache(memoryCapacity: 111_111_111, preferredMemoryUsageAfterPurge: 90_000_000)
+
+    // Assign memory capacity for a URL network cache
+    internal static let memoryCacheSizeMegabytes = 30
+
+    // The AutoPurgingImageCache is an in-memory image cache used to store images up to a given memory capacity.
+    // When the memory capacity is reached, the image cache is sorted by last access date,
+    // then the oldest image is continuously purged until the preferred memory usage after purge is met.
+    // Each time an image is accessed through the cache, the internal access date of the image is updated
+    internal let imageCache = AutoPurgingImageCache(memoryCapacity: 100_000_000, preferredMemoryUsageAfterPurge: 60_000_000)
     var request: DataRequest?
 
     public func load<T>(with url: String,
@@ -63,10 +70,14 @@ public class YSLoader: YSLoaderProtocol {
         }
     }
 
-    public func cancelRequest() {
-        guard let request = request else {
-            return
+    public func cancelRequest(with url: String) {
+        //Cancel specific request
+        Alamofire.SessionManager.default.session.getAllTasks { (tasks) in
+            tasks.forEach({ task in
+                if task.currentRequest?.url?.absoluteString == url {
+                    task.cancel()
+                }
+            })
         }
-        request.cancel()
     }
 }

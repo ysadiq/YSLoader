@@ -18,7 +18,7 @@ extension Alamofire.SessionManager{
                       headers: HTTPHeaders? = nil) -> DataRequest {
 
         // Assign memory (but not disk space) for a URL network cache:
-        let cacheSizeMegabytes = YSLoader.memorycacheSizeMegabytes
+        let cacheSizeMegabytes = YSLoader.memoryCacheSizeMegabytes
         URLCache.shared = URLCache(memoryCapacity: cacheSizeMegabytes*1024*1024,
                                    diskCapacity: 0,
                                    diskPath: nil)

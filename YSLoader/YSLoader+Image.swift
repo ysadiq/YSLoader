@@ -16,7 +16,7 @@ extension YSLoader {
             completionHandler(.success(image))
             return
         }
-
+        print("download this image \(url)")
         request = Alamofire
             .SessionManager
             .default
