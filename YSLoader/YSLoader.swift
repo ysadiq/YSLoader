@@ -11,11 +11,15 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-public typealias Handler<T> = (Result<T, Error>) -> Void
+public typealias Handler<T> = (Swift.Result<T, Error>) -> Void
 
 public class YSLoader: YSLoaderProtocol {
-    public init() {}
 
+    public init(manager: SessionManager = Alamofire.SessionManager.default) {
+        self.manager = manager
+    }
+
+    internal let manager: SessionManager
     // Assign memory capacity for a URL network cache
     internal static let memoryCacheSizeMegabytes = 30
 
@@ -25,15 +29,6 @@ public class YSLoader: YSLoaderProtocol {
     // Each time an image is accessed through the cache, the internal access date of the image is updated
     internal let imageCache = AutoPurgingImageCache(memoryCapacity: 100_000_000, preferredMemoryUsageAfterPurge: 60_000_000)
     internal var requests: [(url: String, request: DataRequest)] = []
-
-    public func load<T>(with url: String,
-                        dataType: DataType,
-                        completionHandler: @escaping Handler<T>) {
-        load(with: url,
-             parameters: nil,
-             dataType: dataType,
-             completionHandler: completionHandler)
-    }
 
     public func load<T>(with url: String,
                         parameters: [String: String]?,
@@ -81,5 +76,14 @@ public class YSLoader: YSLoaderProtocol {
         if let requestObject = requests.first(where: { $0.url == url }) {
             requestObject.request.cancel()
         }
+    }
+
+    public func load<T>(with url: String,
+                        dataType: DataType,
+                        completionHandler: @escaping Handler<T>) {
+        load(with: url,
+             parameters: nil,
+             dataType: dataType,
+             completionHandler: completionHandler)
     }
 }

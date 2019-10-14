@@ -18,9 +18,7 @@ extension YSLoader {
             return nil
         }
         
-        return Alamofire
-            .SessionManager
-            .default
+        return manager
             .request(url, method: .get)
             .validate()
             .responseImage { [weak self] response in

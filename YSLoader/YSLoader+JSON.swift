@@ -12,9 +12,7 @@ import Alamofire
 extension YSLoader {
 
     internal func loadJSON(with url: String, completionHandler: @escaping Handler<Data>) -> DataRequest {
-        return Alamofire
-            .SessionManager
-            .default
+        return manager
             .request(url, method: .get)
             .validate()
             .responseJSON { response in

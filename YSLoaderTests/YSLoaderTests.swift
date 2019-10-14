@@ -8,27 +8,48 @@
 
 import XCTest
 @testable import YSLoader
+@testable import Alamofire
 
 class YSLoaderTests: XCTestCase {
 
+    var sut: YSLoader!
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let manager: SessionManager = {
+            let configuration: URLSessionConfiguration = {
+                let configuration = URLSessionConfiguration.default
+                configuration.protocolClasses = [MockURLProtocol.self]
+                return configuration
+            }()
+
+            return SessionManager(configuration: configuration)
+        }()
+        sut = YSLoader(manager: manager)
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func testFailureLoad() {
+        MockURLProtocol.responseWithFailure()
+        let closureExpectation = expectation(description: "Done")
+        sut?.load(with: "http://pastebin.com/raw/wgkJgazE",
+                 dataType: .json) { (result: Swift.Result<Data, Error>) in
+                    closureExpectation.fulfill()
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
         }
+        wait(for: [closureExpectation], timeout: 1)
     }
 
+    func testSuccessLoad() {
+        MockURLProtocol.responseWithStatusCode(code: 200)
+        let closureExpectation = expectation(description: "Done")
+        sut?.load(with: "http://pastebin.com/raw/wgkJgazE",
+                  dataType: .image) { (result: Swift.Result<Data, Error>) in
+                    closureExpectation.fulfill()
+
+        }
+        wait(for: [closureExpectation], timeout: 1)
+    }
 }

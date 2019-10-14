@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4476E484297BE79336AF727B /* libPods-YSLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 293F6FDB92069889F30E9508 /* libPods-YSLoader.a */; };
+		9903BC7E2354F6E9009D216E /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9903BC7D2354F6E9009D216E /* MockURLProtocol.swift */; };
 		9985C5C2235210470089293E /* YSLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C1235210470089293E /* YSLoaderProtocol.swift */; };
 		9985C5C4235210620089293E /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C3235210620089293E /* DataTypes.swift */; };
 		9985C5C62352108B0089293E /* YSLoader+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C52352108B0089293E /* YSLoader+Image.swift */; };
@@ -36,6 +37,7 @@
 		4AE8C748EA9B167E75A41D4B /* Pods-YSLoader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLoader.debug.xcconfig"; path = "Target Support Files/Pods-YSLoader/Pods-YSLoader.debug.xcconfig"; sourceTree = "<group>"; };
 		5DC9AD01342592ADDFC630E4 /* Pods-YSLoader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YSLoader.release.xcconfig"; path = "Target Support Files/Pods-YSLoader/Pods-YSLoader.release.xcconfig"; sourceTree = "<group>"; };
 		74C88F921BF7FD416EEB9985 /* libPods-YSLoaderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YSLoaderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9903BC7D2354F6E9009D216E /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		9985C5C1235210470089293E /* YSLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YSLoaderProtocol.swift; sourceTree = "<group>"; };
 		9985C5C3235210620089293E /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 		9985C5C52352108B0089293E /* YSLoader+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YSLoader+Image.swift"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				99BC81AE234D6D0600603C9A /* YSLoaderTests.swift */,
 				99BC81B0234D6D0600603C9A /* Info.plist */,
+				9903BC7D2354F6E9009D216E /* MockURLProtocol.swift */,
 			);
 			path = YSLoaderTests;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99BC81AF234D6D0600603C9A /* YSLoaderTests.swift in Sources */,
+				9903BC7E2354F6E9009D216E /* MockURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
