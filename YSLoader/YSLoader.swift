@@ -25,7 +25,7 @@ public class YSLoader: YSLoaderProtocol {
     // then the oldest image is continuously purged until the preferred memory usage after purge is met.
     // Each time an image is accessed through the cache, the internal access date of the image is updated
     internal let imageCache = AutoPurgingImageCache(memoryCapacity: 100_000_000, preferredMemoryUsageAfterPurge: 60_000_000)
-    var request: DataRequest?
+    var requestURLS: [String] = []
 
     public func load<T>(with url: String,
                         dataType: DataType,
@@ -40,6 +40,15 @@ public class YSLoader: YSLoaderProtocol {
                         parameters: [String: String]?,
                         dataType: DataType,
                         completionHandler: @escaping Handler<T>) {
+
+        // guards for duplicate requests
+        guard (requestURLS.firstIndex(of: url) == nil) else {
+            return
+        }
+        
+        // cache request url
+        requestURLS.append(url)
+
         switch dataType {
         case .image:
             loadImage(with: url) { result in
