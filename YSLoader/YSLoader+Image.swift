@@ -11,31 +11,30 @@ import Alamofire
 import AlamofireImage
 
 extension YSLoader {
-    internal func loadImage(with url: String, completionHandler: @escaping Handler<UIImage>) {
+    internal func loadImage(with url: String, completionHandler: @escaping Handler<UIImage>) -> DataRequest? {
         // return image if cached
         if let image = imageCache.image(withIdentifier: url) {
-            print("get cached image \(url)")
             completionHandler(.success(image))
-            return
+            return nil
         }
-        print("download this image \(url)")
-        Alamofire
-        .SessionManager
-        .default
-        .request(url, method: .get)
-        .validate()
-        .responseImage { [weak self] response in
-            guard response.result.isSuccess,
-                let image = response.result.value else {
-                    if let error = response.result.error {
-                        print("Error while fetching image with url \(url): \(error)")
-                        completionHandler(.failure(error))
-                    }
-                    return
+        
+        return Alamofire
+            .SessionManager
+            .default
+            .request(url, method: .get)
+            .validate()
+            .responseImage { [weak self] response in
+                guard response.result.isSuccess,
+                    let image = response.result.value else {
+                        if let error = response.result.error {
+                            print("Error while fetching image with url \(url): \(error)")
+                            completionHandler(.failure(error))
+                        }
+                        return
+                }
+                // cache the image
+                self?.imageCache.add(image, withIdentifier: url)
+                completionHandler(.success(image))
             }
-            // cache the image
-            self?.imageCache.add(image, withIdentifier: url)
-            completionHandler(.success(image))
-        }
     }
 }

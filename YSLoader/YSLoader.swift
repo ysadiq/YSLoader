@@ -14,8 +14,7 @@ import AlamofireImage
 public typealias Handler<T> = (Result<T, Error>) -> Void
 
 public class YSLoader: YSLoaderProtocol {
-
-    public static let shared: YSLoader = YSLoader()
+    public init() {}
 
     // Assign memory capacity for a URL network cache
     internal static let memoryCacheSizeMegabytes = 30
@@ -25,7 +24,7 @@ public class YSLoader: YSLoaderProtocol {
     // then the oldest image is continuously purged until the preferred memory usage after purge is met.
     // Each time an image is accessed through the cache, the internal access date of the image is updated
     internal let imageCache = AutoPurgingImageCache(memoryCapacity: 100_000_000, preferredMemoryUsageAfterPurge: 60_000_000)
-    var requestURLS: [String] = []
+    internal var requests: [(url: String, request: DataRequest)] = []
 
     public func load<T>(with url: String,
                         dataType: DataType,
@@ -41,52 +40,46 @@ public class YSLoader: YSLoaderProtocol {
                         dataType: DataType,
                         completionHandler: @escaping Handler<T>) {
 
-        // guards for duplicate requests
-        guard (requestURLS.firstIndex(of: url) == nil) else {
-            return
-        }
-        
-        // cache request url
-        requestURLS.append(url)
-
+        var request: DataRequest?
         switch dataType {
         case .image:
-            loadImage(with: url) { result in
+            request = loadImage(with: url) { result in
                 switch result {
-                case .failure(let error):
-                    completionHandler(.failure(error))
-                case .success(let image):
-                    guard let image = image as? T else {
-                        return
+                    case .failure(let error):
+                        completionHandler(.failure(error))
+                    case .success(let image):
+                        guard let image = image as? T else {
+                            return
+                        }
+                        completionHandler(.success(image))
                     }
-                    completionHandler(.success(image))
                 }
-            }
         case .json:
-            loadJSON(with: url) { result in
+            request = loadJSON(with: url) { result in
                 switch result {
-                case .failure(let error):
-                    completionHandler(.failure(error))
-                case .success(let json):
-                    guard let json = json as? T else {
-                        return
+                    case .failure(let error):
+                        completionHandler(.failure(error))
+                    case .success(let json):
+                        guard let json = json as? T else {
+                            return
+                        }
+                        completionHandler(.success(json))
                     }
-                    completionHandler(.success(json))
                 }
-            }
         default:
             break
         }
+        
+        guard let requestUnwrapped = request else {
+            return
+        }
+        requests.append((url: url, request: requestUnwrapped))
     }
 
-    public func cancelRequest(with url: String) {
-        //Cancel specific request
-        Alamofire.SessionManager.default.session.getAllTasks { (tasks) in
-            tasks.forEach({ task in
-                if task.currentRequest?.url?.absoluteString == url {
-                    task.cancel()
-                }
-            })
+    // Cancel specific request with a griven URL
+    public func cancelRequest(of url: String) {
+        if let requestObject = requests.first(where: { $0.url == url }) {
+            requestObject.request.cancel()
         }
     }
 }
