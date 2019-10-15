@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 
 extension YSLoader {
-
     internal func loadJSON(with url: String, completionHandler: @escaping Handler<Data>) -> DataRequest {
         return manager
             .request(url, method: .get)

@@ -13,7 +13,7 @@
 		9985C5C4235210620089293E /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C3235210620089293E /* DataTypes.swift */; };
 		9985C5C62352108B0089293E /* YSLoader+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C52352108B0089293E /* YSLoader+Image.swift */; };
 		9985C5C8235210E70089293E /* YSLoader+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C7235210E70089293E /* YSLoader+JSON.swift */; };
-		9985C5CA235213780089293E /* YSLoader+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C9235213780089293E /* YSLoader+Result.swift */; };
+		9985C5CA235213780089293E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5C9235213780089293E /* Result.swift */; };
 		9985C5CC23521E560089293E /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985C5CB23521E560089293E /* SessionManager.swift */; };
 		9997A3C2234D7F8E00787435 /* YSLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9997A3C1234D7F8E00787435 /* YSLoader.swift */; };
 		99BC81AA234D6D0600603C9A /* YSLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99BC81A0234D6D0600603C9A /* YSLoader.framework */; };
@@ -42,7 +42,7 @@
 		9985C5C3235210620089293E /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 		9985C5C52352108B0089293E /* YSLoader+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YSLoader+Image.swift"; sourceTree = "<group>"; };
 		9985C5C7235210E70089293E /* YSLoader+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YSLoader+JSON.swift"; sourceTree = "<group>"; };
-		9985C5C9235213780089293E /* YSLoader+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YSLoader+Result.swift"; sourceTree = "<group>"; };
+		9985C5C9235213780089293E /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		9985C5CB23521E560089293E /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		9997A3C1234D7F8E00787435 /* YSLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YSLoader.swift; sourceTree = "<group>"; };
 		99BC81A0234D6D0600603C9A /* YSLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YSLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,15 +108,15 @@
 		99BC81A2234D6D0600603C9A /* YSLoader */ = {
 			isa = PBXGroup;
 			children = (
-				99BC81A3234D6D0600603C9A /* YSLoader.h */,
-				99BC81A4234D6D0600603C9A /* Info.plist */,
 				9997A3C1234D7F8E00787435 /* YSLoader.swift */,
-				9985C5C9235213780089293E /* YSLoader+Result.swift */,
 				9985C5C7235210E70089293E /* YSLoader+JSON.swift */,
 				9985C5C52352108B0089293E /* YSLoader+Image.swift */,
-				9985C5C3235210620089293E /* DataTypes.swift */,
 				9985C5C1235210470089293E /* YSLoaderProtocol.swift */,
 				9985C5CB23521E560089293E /* SessionManager.swift */,
+				9985C5C3235210620089293E /* DataTypes.swift */,
+				9985C5C9235213780089293E /* Result.swift */,
+				99BC81A3234D6D0600603C9A /* YSLoader.h */,
+				99BC81A4234D6D0600603C9A /* Info.plist */,
 			);
 			path = YSLoader;
 			sourceTree = "<group>";
@@ -125,8 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				99BC81AE234D6D0600603C9A /* YSLoaderTests.swift */,
-				99BC81B0234D6D0600603C9A /* Info.plist */,
 				9903BC7D2354F6E9009D216E /* MockURLProtocol.swift */,
+				99BC81B0234D6D0600603C9A /* Info.plist */,
 			);
 			path = YSLoaderTests;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 				9985C5C4235210620089293E /* DataTypes.swift in Sources */,
 				9985C5C2235210470089293E /* YSLoaderProtocol.swift in Sources */,
 				9997A3C2234D7F8E00787435 /* YSLoader.swift in Sources */,
-				9985C5CA235213780089293E /* YSLoader+Result.swift in Sources */,
+				9985C5CA235213780089293E /* Result.swift in Sources */,
 				9985C5CC23521E560089293E /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

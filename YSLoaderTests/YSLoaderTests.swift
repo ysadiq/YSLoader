@@ -14,6 +14,7 @@ class YSLoaderTests: XCTestCase {
 
     var sut: YSLoader!
     override func setUp() {
+        super.setUp()
         let manager: SessionManager = {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.default
@@ -27,8 +28,8 @@ class YSLoaderTests: XCTestCase {
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         sut = nil
+        super.tearDown()
     }
 
     func testFailureLoad() {
