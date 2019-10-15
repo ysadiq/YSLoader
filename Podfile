@@ -3,8 +3,8 @@ platform :ios, '10.0'
 
 target 'YSLoader' do
   # Pods for YSLoader
-    pod 'Alamofire', '4.7'
-    pod 'AlamofireImage', '3.5'
+    pod 'Alamofire'
+    pod 'AlamofireImage'
 
    target 'YSLoaderTests' do
         inherit! :search_paths
