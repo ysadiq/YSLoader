@@ -12,7 +12,7 @@ addons:
       secure: "CgGeFmWT9Gxg0yqR0UApURdGQBYHVyREa0EGsjGBk09GDBXrdxnMn5MO4z4t+2snMOmzTtbnEDZjw0txHN/uaXoE/jtlhemrkEWof4EArCSGuw+tqEypRFEah3kBSRnTCTfVKEKw5iXPZxcyOhAJdV9ozvbIoLP0sjBT/xnor3YObphd6NShecvcmRGdNW5VICYb9si8yFaCEsGu9nBRynY3TVro0pHfymBrH8afKidNS7lRdEqELu4xPkSxA0bWUaL1iNQj52GUOoTq13+qeI1JUaMaTWtOIXfM5JihBnqF/vHy4pqeFChe+9TAP8BMsJm+Wb7b7K43PwUFFMQi9wPfoBI9113pWoE51arnZy2uF+iHepVg0c5K9f9Jnmj3YLBu5KEIahtIXfHUiTIXZhYuSD8r5SOC2nRMRfDy6eZliz5iqHJ/JOx72dANMqC1nwMWux2NTt7lT4o5S4iB6FUNRFDcuSsccQ0iDRtwPeQllUp3KghKyz04ud8tucYa3MwWGDbfVx+ZzE1THWeq79kZi677Fapptv7lAESeLuuQkX3VbxY1ePcgO48ndswzZqkTfCdrxQqzDmLOvBogweootFhdzrZUTBd4lHCEbyTlAM5QLIO5qXIvxQznIa2blYffXSRA5pIteo26KWIjA1PrlfzctPVUtj0Averdgh8=" # encrypted value of your token
 script:
   - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace YSLoader.xcworkspace -scheme YSLoader -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
-  - sonar-scanner
+  #- sonar-scanner
 after_success:
   - slather
   - bash <(curl -s https://codecov.io/bash) -f reports/cobertura.xml -X coveragepy -X gcov -X xcode
