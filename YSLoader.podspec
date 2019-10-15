@@ -13,7 +13,6 @@ s.source = { :git => "https://github.com/ysadiq/YSLoader.git",
 :tag => "#{s.version}" }
 s.dependency 'Alamofire', '~> 4.7'
 s.dependency 'AlamofireImage', '~> 3.5'
-s.dependency 'MBProgressHUD', '~> 1.1.0'
 s.source_files = "YSLoader/**/*.{swift}"
 s.resources = "YSLoader/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
 s.swift_version = "5.0"
