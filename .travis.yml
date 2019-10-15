@@ -5,8 +5,14 @@ env:
   matrix:
     - TEST_SDK=iphonesimulator12.4 OS=12.4 NAME='iPhone XR'
 
+addons:
+  sonarcloud:
+    organization: "ysadiq" # the key of the org you chose at step #3
+    token:
+      secure: "d18EvQQEyuOW/KSG4sdK86PsPqNj34xAVCoa5EdoMZF+iem+nlEP+xpcpivj88mosBWtdkBYoZyrRvyrTCwqCW4DbJZ0Gdw+MCe9na4O6/w5Sw3Aipr88nQgbE3hRUaGqcSCpFWLVQro0xxzFyjRHnNzLO+gemmOL0vJ1m7InHZZhctWSCZ1uB9xCrNqbgooD9NwJkuskAGaXiQXy7/a8hohml5ycOI2QXwcxLffMdTqhgOc/egmN1mmrHwIKV2UKpIAbAV32EC71pXNMOUSv5DPeL+n/sUetHnrFN1nY1TkdY1Or5muDr+cRu93EaGok70ttNXoZl9PoY7t4Uktuy1hJZKHnr0AwzXzqsyR0WAbdhSGCbNOMpN0kUUvx2ZpPB3S/QA+nCYbaw76aMjEYYcgrF+lW56qL+LwckKY3F79DW+pAG388ofQvsxBUWbxVTRpr4IPLZdREF8/D3QjELZxDDk95HQrDp+sRgfeQsGsqyD2KpqQDir1LIt+yUyFHSHsxwMBXqRNHY9qqmZgZ2xtR1SX7TniF4YBRTxFvhM8pC9ih09EYSqiUXDIz83kUjMLaAE3irHXoLB4QM3TbyFlOmZDbTmXAqt3IXERK/4cCnTe9pDnvnBACLP5ExkM12lEwOIxdWu0FWT8LqIUj9I/CeWE6sr7dYe9vlEG/v0=" # encrypted value of your token
 script:
   - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace YSLoader.xcworkspace -scheme YSLoader -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
+  - sonar-scanner
 after_success:
   - slather
   - bash <(curl -s https://codecov.io/bash) -f reports/cobertura.xml -X coveragepy -X gcov -X xcode
